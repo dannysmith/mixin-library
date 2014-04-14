@@ -1,0 +1,43 @@
+// mixins.scss
+// Contains custom Mixins for use in my projects
+
+
+// Vertical Align anything using Translate
+// http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+// Usage:
+//   .element p {
+//     @extend %vertical-align;
+//   }
+
+%vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+
+// Calculate fluid ratio based on two dimensions (width/height)
+//
+// figure.fluidratio {
+//   /* This element will have fluid ratio from 4:1 at 800px to 2:1 at 300px. */
+//   @include fluid-ratio(800px 200px, 300px 150px);
+//   background-image: url(http://voormedia.com/examples/amsterdam.jpg);
+// }
+@mixin fluid-ratio($large-size, $small-size) {
+  $width-large: nth($large-size, 1);
+  $width-small: nth($small-size, 1);
+  $height-large: nth($large-size, 2);
+  $height-small: nth($small-size, 2);
+  $slope: ($height-large - $height-small) / ($width-large - $width-small);
+  $height: $height-small - $width-small * $slope;
+
+  padding-top: $slope * 100%;
+  height: $height;
+
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+}
